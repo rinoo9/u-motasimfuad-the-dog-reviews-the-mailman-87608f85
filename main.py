@@ -12,11 +12,18 @@ REVIEW = (
     "I will bark again tomorrow."
 )
 
+MAX_CHARS = 200
+
 
 def main():
+    # The gate only accepts 1-200 characters, one line, not only whitespace.
+    line = REVIEW.strip()
+    assert line, "review must not be empty"
+    assert "\n" not in line, "review must be a single line"
+    assert len(line) <= MAX_CHARS, f"review is {len(line)} chars, over the 200 limit"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(REVIEW)
+        f.write(line)
 
 
 if __name__ == "__main__":
